@@ -36,4 +36,4 @@ Para fazer um PR é interessante que ele esteja linkado a uma issue, ver a [docu
 
 ### Actions
 
-Esse projeto conta com algumas github actions. Isso significa que o projeto tem algumas automações, como por exemplo, testar o lint e validaro projeto Django. Um PR só será aceito, caso passe todas as etapas do GitHub actions.
+Esse projeto conta com algumas github actions. Isso significa que o projeto tem algumas automações, como por exemplo, testar o lint e validar o projeto Django. Um PR só será aceito, caso passe todas as etapas do GitHub actions.
