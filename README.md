@@ -1,5 +1,3 @@
-![Django Build](https://github.com/github/docs/actions/workflows/django.yml/badge.svg) ![Pylint](https://github.com/github/docs/actions/workflows/pylint.yml/badge.svg) 
-
 # Scorched Movies Backend
 Esse é um projeto feito no framework Django para ser o backend da aplicação Scorched Movies, cujo o propósito é fazer downloads automaticos de conteúdo de mídia em torrent e disponibilizar, automaticamente, esse conteúdo via Plex.
 
