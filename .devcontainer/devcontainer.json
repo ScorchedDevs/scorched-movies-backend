@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3-postgres
 // Update the VARIANT arg in docker-compose.yml to pick a Python version
 {
-	"name": "Schorched Movies Backend",
+	"name": "Scorched Movies Backend",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
