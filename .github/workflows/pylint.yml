@@ -20,4 +20,4 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Analysing the code with pylint
       run: |
-        pylint --load-plugins pylint_django --disable=django-not-configured $(git ls-files '*.py')
+        pylint --load-plugins pylint_django --rcfile=.pylintrc $(git ls-files '*.py')
