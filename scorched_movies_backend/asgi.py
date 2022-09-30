@@ -1,5 +1,5 @@
 """
-ASGI config for SchorchedMoviesBackend project.
+ASGI config for scorched_movies_backend project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
