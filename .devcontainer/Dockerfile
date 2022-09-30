@@ -8,15 +8,12 @@ ENV PYTHONUNBUFFERED 1
 ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-# [Optional] If your requirements rarely change, uncomment this section to add them to the image.
-# COPY requirements.txt /tmp/pip-tmp/
-# RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-#    && rm -rf /tmp/pip-tmp
-
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    default-jdk libldap2-dev libsasl2-dev
 
+# [Optional] If your requirements rarely change, uncomment this section to add them to the image.
 COPY setup.py /tmp/pip-tmp/
 COPY requirements.txt /tmp/pip-tmp/
 COPY requirements-dev.txt /tmp/pip-tmp/
@@ -25,6 +22,7 @@ RUN pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requi
     && pip install -e /tmp/pip-tmp \
     && rm -rf /tmp/pip-tmp
 
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
 
 

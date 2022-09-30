@@ -28,7 +28,17 @@
 				"python.linting.pylintArgs": [
 					"--load-plugins",
 					"pylint_django"
-				]
+				],
+				"sonarlint.ls.javaHome": "/usr/lib/jvm/java-11-openjdk-amd64",
+				"sonarlint.connectedMode.connections.sonarqube": [
+					{
+						"serverUrl": "https://sonarcloud.io/",
+						"token": "90135759fc241256b253ea0afa0220965fa8b02e"
+					}
+				],
+				"sonarlint.connectedMode.project": {
+					"projectKey": "ScorchedDevs_scorched-movies-backend"
+				}
 			},
 			"cSpell.enabled": true,
 			"cSpell.language": "en,en-US,pt,pt_BR",
@@ -41,6 +51,7 @@
 				"streetsidesoftware.code-spell-checker",
 				"streetsidesoftware.code-spell-checker-portuguese-brazilian",
 				"eamodio.gitlens",
+				"SonarSource.sonarlint-vscode",
 			]
 		}
 	},
