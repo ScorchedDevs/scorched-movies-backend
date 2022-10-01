@@ -1,3 +1,12 @@
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend) 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
 # Scorched Movies Backend
 Esse é um projeto feito no framework Django para ser o backend da aplicação Scorched Movies, cujo o propósito é fazer downloads automaticos de conteúdo de mídia em torrent e disponibilizar, automaticamente, esse conteúdo via Plex.
 
