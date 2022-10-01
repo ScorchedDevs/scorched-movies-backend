@@ -6,10 +6,17 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
+      - name: Install requirements
+        run: pip install requirements-dev.txt
+      - name: Run test with coverage
+        run: coverage run --branch --source=$GITHUB_WORKSPACE ./manage.py test --noinput --parallel
+      - name: Generate coverage report
+        run: coverage xml -o test-coverage.xml
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
