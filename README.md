@@ -1,5 +1,6 @@
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend) 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
