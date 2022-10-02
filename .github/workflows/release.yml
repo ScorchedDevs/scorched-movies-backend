@@ -31,9 +31,13 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint --rcfile=.pylintrc $(git ls-files '*.py')
-    - name: Clonando Scorched CI
+    - name: Clonando ultima tag do Scorched CI
       run: |
         git clone https://github.com/ScorchedDevs/scorched-ci.git
+        cd scorched-ci
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
     - name: Instalando dependencias
       run: |
         cd scorched-ci
