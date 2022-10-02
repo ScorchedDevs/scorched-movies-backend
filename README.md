@@ -39,6 +39,10 @@ Para criar uma branch que resolve um determinado issue, seria interessante que v
 
 Os commits também devem seguir um padrão para facilitar a organização d o trabalho em grupo. Então os commits devem seguir o seguinte padrão "#xxx - descrição do commit" sendo xxx o número da issue relacionada ao commit. Por exemplo: "#001 - Adicionando login de usuários".
 
+### Changelog
+
+O arquivo de changelog serve como base para os releases gerados automaticamente pelo CI. O padrão é substituir o N/A (e adicioanr mais linhas se necessário) no campo que corresponde ao que foi feito no projeto com `[#xxx](https://github.com/ScorchedDevs/scorched-movies-backend/issues/xxx) e então descrever aqui o que foi feito`
+
 ### PR (Pull Requests)
 
 Para fazer um PR é interessante que ele esteja linkado a uma issue, ver a [documentação](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) para fechar as issues automaticamente com as PRs.
