@@ -7,6 +7,7 @@ import { GatewayService } from '../gateway/gateway.service';
 import { MessageType } from '../gateway/dto/message.type';
 import { SubsdownloaderService } from '../subsdownloader/subsdownloader.service';
 import { PlexService } from '../plex/plex.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TorrentService {
@@ -15,12 +16,17 @@ export class TorrentService {
     private readonly gatewayService: GatewayService,
     private readonly subsdownloaderService: SubsdownloaderService,
     private readonly plexService: PlexService,
+    private readonly configService: ConfigService,
   ) {}
 
   private readonly logger = new Logger(TorrentService.name);
 
   async donwloadTorrent(downloadTorrentInput, user): Promise<MessageOutput> {
-    const options = { path: `torrents/movies`, verify: true, dht: true };
+    const options = {
+      path: this.configService.get('MOVIES_PATH'),
+      verify: true,
+      dht: true,
+    };
     const engine = await torrentStream(
       downloadTorrentInput.magnetLink,
       options,
@@ -56,10 +62,12 @@ export class TorrentService {
 
         this.subsdownloaderService.getSubs(
           downloadTorrentInput.imdbId,
-          `torrents/movies/${file.path.split('/')[0]}`,
+          `${this.configService.get('MOVIES_PATH')}/${file.path.split('/')[0]}`,
         );
 
-        movie.dir = `torrents/movies/${file.path.split('/')[0]}`;
+        movie.dir = `${this.configService.get('MOVIES_PATH')}/${
+          file.path.split('/')[0]
+        }`;
         movie.finishedDownloadingAt = null;
         movie.deletedAt = null;
         movie = await this.moviesService.updateMovie(movie);
