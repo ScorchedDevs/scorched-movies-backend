@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- regeneratin yarn.lock
+- adding movie paths to environments
 
 ## Compatibility Breaker
 
