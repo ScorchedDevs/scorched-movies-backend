@@ -1,53 +1,73 @@
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend) 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ScorchedDevs_scorched-movies-backend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ScorchedDevs_scorched-movies-backend)
-# Scorched Movies Backend
-Esse é um projeto feito no framework Django para ser o backend da aplicação Scorched Movies, cujo o propósito é fazer downloads automaticos de conteúdo de mídia em torrent e disponibilizar, automaticamente, esse conteúdo via Plex.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## Recomendações
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-Para editar esse projeto é recomendado que se use o sistema operacional linux, principalmente por ser um projeto que contempla a tecnologia Docker.
+## Description
 
-## Devcontainer
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-Esse projeto conta com a configuração devcontainer do VSCode, por isso o melhor jeito de trabalhar nesse projeto é fazer o download do VSCode, instalar a extenção  "remote containers" e, ao abrir o projeto, clicar em "reopen in container". Dessa forma todas as dependencias e extenções utilizadas para trabalahr nesse projeto serão instaladas automáticamente.
+## Installation
 
-## Debugging
+```bash
+$ yarn install
+```
 
-Esse projeto também conta com launch.json, mais uma funcionalidade do VSCode, então para rodar a aplicação ao testar, basta apertar F5 que ele entrará no modo debug, deixando esse passo ainda mais fácil.
+## Running the app
 
-## Como contribuir com o projeto?
+```bash
+# development
+$ yarn run start
 
-Para contribuir com o projeto é interessante que se siga as seguintes regras:
+# watch mode
+$ yarn run start:dev
 
-### Issues
+# production mode
+$ yarn run start:prod
+```
 
-A issue deve ser criada quando algo for ser implementado no código. Por exemplo, para criar um esquema de autenticação de usuário para acessar nossa aplicação. Criasse uma issue para implementar o loing, uma outra issue para implementar o logout, e uma issue para alterar a senha, por exemplo. Caso, para atingir um objetivo específico, como nesse caso, criar um esquema de login, você precise finalizar 3 ou mais issues, seria interessante que você fizesse uma Milestone linkando todas as issues, assim fica mais fácil de acompanhar quanto falta para que determindada funcionalidade seja implementada.
+## Test
 
-### Branches
+```bash
+# unit tests
+$ yarn run test
 
-Para criar uma branch que resolve um determinado issue, seria interessante que você especifique se é uma feature nova ou um bugfix e então indique qual a issue relacionada à branch. Então deveriamos seguir o padrão
-"tipo/issue-xxx", como por exemplo: "feature/issue-001".
+# e2e tests
+$ yarn run test:e2e
 
-### Commits
+# test coverage
+$ yarn run test:cov
+```
 
-Os commits também devem seguir um padrão para facilitar a organização d o trabalho em grupo. Então os commits devem seguir o seguinte padrão "#xxx - descrição do commit" sendo xxx o número da issue relacionada ao commit. Por exemplo: "#001 - Adicionando login de usuários".
+## Support
 
-### Changelog
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-O arquivo de changelog serve como base para os releases gerados automaticamente pelo CI. O padrão é substituir o N/A (e adicioanr mais linhas se necessário) no campo que corresponde ao que foi feito no projeto com `[#xxx](https://github.com/ScorchedDevs/scorched-movies-backend/issues/xxx) e então descrever aqui o que foi feito`
+## Stay in touch
 
-### PR (Pull Requests)
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-Para fazer um PR é interessante que ele esteja linkado a uma issue, ver a [documentação](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) para fechar as issues automaticamente com as PRs.
+## License
 
-### Actions
-
-Esse projeto conta com algumas github actions. Isso significa que o projeto tem algumas automações, como por exemplo, testar o lint e validar o projeto Django. Um PR só será aceito, caso passe todas as etapas do GitHub actions.
+Nest is [MIT licensed](LICENSE).
