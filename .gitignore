@@ -1,0 +1,8 @@
+.vscode/*
+!.vscode/launch.json
+.coverage
+*.xml
+.env
+node_modules/*
+torrents/movies/*
+!torrents/movies/.gitkeep

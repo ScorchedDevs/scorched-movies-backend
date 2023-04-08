@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        type: choice
+        description: Tipo de Release
+        options: 
+        - major
+        - minor
+        - patch
+
+jobs:
+  release:
+    if: ${{ github.triggering_actor == 'RyuunosukeDS3' && github.ref == 'refs/heads/develop' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Clonando ultima tag do Scorched CI
+      run: |
+        git clone https://github.com/ScorchedDevs/scorched-ci.git
+        cd scorched-ci
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
+    - name: Instalando dependencias
+      run: |
+        cd scorched-ci
+        pip install -r requirements.txt
+    - name: Criando o release
+      run: |
+        cd scorched-ci
+        python -c 'import main; main.release_${{ github.event.inputs.release }}()'
+      env:
+        REPO_NAME: ${{ github.repository }}
+        TOKEN: ${{ secrets.TOKEN }}
