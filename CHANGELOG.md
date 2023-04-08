@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- fixing dependencies
+- regeneratin yarn.lock
 
 ## Compatibility Breaker
 
