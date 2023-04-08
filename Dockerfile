@@ -8,6 +8,6 @@ RUN yarn install
 
 copy . .
 
-RUN npm run build
+RUN yarn prisma generate && yarn build
 
 CMD [ "node", "dist/main.js" ]
