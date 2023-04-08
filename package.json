@@ -51,11 +51,7 @@
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "rxjs": "^7.2.0",
-    "torrent-stream": "^1.2.1",
-    "yify-api": "^1.1.3",
-    "yifysubtitles-api": "^1.0.0",
-    "yts": "^2.0.1",
-    "ytssubs": "^1.0.2"
+    "torrent-stream": "^1.2.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.3.0",
