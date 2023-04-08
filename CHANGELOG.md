@@ -2,16 +2,16 @@
 
 ## Novas funcionalidades
 
- - N/A
+- N/A
 
 ## Melhorias
 
- - N/A
+- N/A
 
 ## Correções
 
- - N/A
+- N/A
 
 ## Quebra de compatibilidade
 
- - N/A
+- Primeira versão
