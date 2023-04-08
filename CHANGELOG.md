@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- fixing docker action
+- fixing dependencies
 
 ## Compatibility Breaker
 
