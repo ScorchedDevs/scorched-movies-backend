@@ -10,7 +10,8 @@
 
 ## Fixes
 
-- Fixing cmd in dockerfile
+- Refreshing plex after deleting movie
+- Fixing email URLS
 
 ## Compatibility Breaker
 
