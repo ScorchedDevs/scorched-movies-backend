@@ -2,16 +2,16 @@
 
 ## New Features
 
- - N/A
+- Adding language identifier on subtitles
 
 ## Enhancements
 
- - N/A
+- N/A
 
 ## Fixes
 
- - N/A
+- N/A
 
 ## Compatibility Breaker
 
- - N/A
+- N/A

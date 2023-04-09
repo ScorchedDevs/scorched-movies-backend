@@ -44,12 +44,14 @@ export class TorrentService {
     }
 
     movie = await this.moviesService.updateMovieUsers(movie, user);
+    this.logger.log(movie.id);
 
-    this.gatewayService.server.emit('message', {
+    await this.gatewayService.server.emit('message', {
       id: movie.id,
       type: MessageType.DOWNLOAD_ADDED,
       content: { message: 'Movie was added to the queue' },
     });
+    this.logger.log(movie.id);
 
     engine.on('ready', async () => {
       this.gatewayService.server.emit('message', {

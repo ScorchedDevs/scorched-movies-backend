@@ -66,7 +66,12 @@ export class SubsdownloaderService {
             });
 
           https.get(data.link, (res) => {
-            const path = `${directory}/${data.file_name}`;
+            const splitFileName = data.file_name.split('.');
+            const extension = splitFileName.pop();
+            splitFileName.push(sub.attributes.language);
+            splitFileName.push(extension);
+            const fileName = splitFileName.join('.');
+            const path = `${directory}/${fileName}`;
             const filePath = createWriteStream(path);
             res.pipe(filePath);
             filePath.on('finish', () => {
