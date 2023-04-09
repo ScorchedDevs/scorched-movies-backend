@@ -1,6 +1,7 @@
 from node:18
 
-WORKDIR /workspace
+# Create app directory
+WORKDIR /usr/src/app
 
 COPY package.json ./
 
@@ -10,8 +11,8 @@ RUN yarn config set network-timeout 300000
 
 RUN yarn install
 
-copy . .
+COPY . .
 
 RUN yarn prisma generate && yarn build
 
-CMD [ "node", "dist/main.js" ]
+CMD [ "yarn", "migrate:dev", "&&","node", "dist/src/main.js" ]
