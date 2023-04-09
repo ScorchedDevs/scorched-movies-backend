@@ -2,16 +2,17 @@
 
 ## New Features
 
- - N/A
+- N/A
 
 ## Enhancements
 
- - N/A
+- N/A
 
 ## Fixes
 
- - N/A
+- Refreshing plex after deleting movie
+- Fixing email URLS
 
 ## Compatibility Breaker
 
- - N/A
+- N/A
