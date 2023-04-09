@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- Fixing Dockerfile and other stuff
+- Fixing cmd in dockerfile
 
 ## Compatibility Breaker
 
