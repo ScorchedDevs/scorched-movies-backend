@@ -6,3 +6,4 @@
 node_modules/*
 torrents/movies/*
 !torrents/movies/.gitkeep
+dist
