@@ -2,7 +2,7 @@
 
 ## New Features
 
-- N/A
+- Adding language identifier on subtitles
 
 ## Enhancements
 
@@ -10,8 +10,7 @@
 
 ## Fixes
 
-- Refreshing plex after deleting movie
-- Fixing email URLS
+- N/A
 
 ## Compatibility Breaker
 
