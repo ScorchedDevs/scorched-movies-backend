@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- adding movie paths to environments
+- Fixing Dockerfile and other stuff
 
 ## Compatibility Breaker
 
