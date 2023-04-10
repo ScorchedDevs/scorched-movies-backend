@@ -2,16 +2,16 @@
 
 ## New Features
 
-- N/A
+ - N/A
 
 ## Enhancements
 
-- changing torrent manager to transmission
+ - N/A
 
 ## Fixes
 
-- N/A
+ - N/A
 
 ## Compatibility Breaker
 
-- N/A
+ - N/A
