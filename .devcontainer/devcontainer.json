@@ -51,8 +51,13 @@
       "version": "latest"
     }
   },
-  "forwardPorts": [3000, 5432],
-  "postCreateCommand": "yarn install && yarn migrate:dev",
+  "forwardPorts": [
+    3000,
+    5432,
+    9091,
+    51413
+  ],
+  "postCreateCommand": "transmission config admin admin && sudo chown -R node: movies && yarn install && yarn migrate:dev",
   "remoteUser": "node"
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},

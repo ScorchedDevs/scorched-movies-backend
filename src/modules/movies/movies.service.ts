@@ -19,9 +19,15 @@ export class MoviesService {
     });
   }
 
-  async updateMovie(movie: Movie): Promise<Movie> {
+  async updateMovie(
+    movie: Prisma.MovieUpdateInput,
+    user?: User,
+  ): Promise<Movie> {
+    if (user) {
+      movie.users = { connect: [{ id: user.id }] };
+    }
     return this.prismaService.movie.update({
-      where: { id: movie.id },
+      where: { id: movie.id as string },
       data: movie,
     });
   }
@@ -48,6 +54,12 @@ export class MoviesService {
           connect: [{ id: user.id }],
         },
       },
+    });
+  }
+
+  async getStillDownloading(): Promise<Movie[]> {
+    return this.prismaService.movie.findMany({
+      where: { finishedDownloadingAt: null },
     });
   }
 }
