@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- small fix
+- small fix dockerfile
 
 ## Compatibility Breaker
 
