@@ -9,4 +9,8 @@ export class UtilsService {
     const promiseArray = array.map(fn);
     await Promise.all(promiseArray);
   }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 }

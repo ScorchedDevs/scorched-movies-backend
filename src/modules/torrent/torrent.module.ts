@@ -16,6 +16,7 @@ import { PlexModule } from '../plex/plex.module';
     UserModule,
     SubsdownloaderModule,
     PlexModule,
+    UtilsModule,
   ],
   providers: [TorrentService],
   controllers: [TorrentController],

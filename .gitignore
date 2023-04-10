@@ -4,6 +4,6 @@
 *.xml
 .env
 node_modules/*
-torrents/movies/*
-!torrents/movies/.gitkeep
+movies/*
+!movies/.gitkeep
 dist

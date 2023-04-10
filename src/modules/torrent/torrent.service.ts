@@ -1,14 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as torrentStream from 'torrent-stream';
-import { MessageOutput } from '../common/dto/message.output';
 import { MoviesService } from '../movies/movies.service';
-import { Prisma } from '@prisma/client';
+import { Movie, Prisma } from '@prisma/client';
 import { GatewayService } from '../gateway/gateway.service';
 import { MessageType } from '../gateway/dto/message.type';
 import { SubsdownloaderService } from '../subsdownloader/subsdownloader.service';
 import { PlexService } from '../plex/plex.service';
 import { ConfigService } from '@nestjs/config';
-
+import * as Transmission from 'transmission';
+import { UtilsService } from 'src/utils/utils.service';
 @Injectable()
 export class TorrentService {
   constructor(
@@ -17,93 +16,138 @@ export class TorrentService {
     private readonly subsdownloaderService: SubsdownloaderService,
     private readonly plexService: PlexService,
     private readonly configService: ConfigService,
+    private readonly utilsService: UtilsService,
   ) {}
 
-  private readonly logger = new Logger(TorrentService.name);
+  async onModuleInit() {
+    await this.refreshMovies();
+    await this.startTorrents();
+    await this.watchTorrents();
+  }
 
-  async donwloadTorrent(downloadTorrentInput, user): Promise<MessageOutput> {
-    const options = {
-      path: this.configService.get('MOVIES_PATH'),
-      verify: true,
-      dht: true,
-    };
-    const engine = await torrentStream(
+  logger = new Logger(TorrentService.name);
+
+  movies!: Movie[];
+
+  public transmission = new Transmission({
+    username: this.configService.get('TRANSMISSION_USER'),
+    password: this.configService.get('TRANSMISSION_PASS'),
+  });
+
+  async donwloadTorrent(downloadTorrentInput, user) {
+    await this.transmission.addUrl(
       downloadTorrentInput.magnetLink,
-      options,
-    );
+      {
+        'download-dir': `/output/${downloadTorrentInput.imdbId}_${downloadTorrentInput.quality}`,
+      },
+      async (err, torrent) => {
+        if (err) {
+          this.logger.error(err);
+          return {
+            message: `Failed to start download with error: ${err}`,
+            success: false,
+          };
+        }
 
-    let movie = await this.moviesService.findMovie(downloadTorrentInput);
+        let movie: Movie | Prisma.MovieCreateInput =
+          await this.moviesService.findMovie(downloadTorrentInput);
 
-    if (!movie) {
-      const movieCreateInput: Prisma.MovieCreateInput = {
-        name: downloadTorrentInput.name,
-        quality: downloadTorrentInput.quality,
-        image: downloadTorrentInput.image,
-      };
-      movie = await this.moviesService.create(movieCreateInput);
-    }
+        if (!movie) {
+          movie = {
+            name: downloadTorrentInput.name,
+            quality: downloadTorrentInput.quality,
+            image: downloadTorrentInput.image,
+            imdbId: downloadTorrentInput.imdbId,
+          };
+          movie = await this.moviesService.create(movie);
+        }
 
-    movie = await this.moviesService.updateMovieUsers(movie, user);
-    this.logger.log(movie.id);
-
-    await this.gatewayService.server.emit('message', {
-      id: movie.id,
-      type: MessageType.DOWNLOAD_ADDED,
-      content: { message: 'Movie was added to the queue' },
-    });
-    this.logger.log(movie.id);
-
-    engine.on('ready', async () => {
-      this.gatewayService.server.emit('message', {
-        id: movie.id,
-        type: MessageType.DOWNLOAD_STARTED,
-        content: { message: 'Movie started downloading' },
-      });
-      for (const file of engine.files) {
-        const stream = file.createReadStream();
-
-        this.subsdownloaderService.getSubs(
-          downloadTorrentInput.imdbId,
-          `${this.configService.get('MOVIES_PATH')}/${file.path.split('/')[0]}`,
-        );
-
+        movie.torrentId = torrent.id;
         movie.dir = `${this.configService.get('MOVIES_PATH')}/${
-          file.path.split('/')[0]
-        }`;
-        movie.finishedDownloadingAt = null;
-        movie.deletedAt = null;
-        movie = await this.moviesService.updateMovie(movie);
-      }
-    });
-    engine.on('download', () => {
-      const totalLength = engine.files
-        .map((file) => file.length)
-        .reduce(function (sum, value) {
-          return sum + value;
-        });
+          downloadTorrentInput.imdbId
+        }_${downloadTorrentInput.quality}`;
+        movie = await this.moviesService.updateMovie(movie as Movie, user);
 
-      const swarm: any = engine.swarm;
-      this.gatewayService.server.emit('message', {
-        id: movie.id,
-        type: MessageType.DOWNLOAD_PROGRESS,
-        content: {
-          downloadedAmount: (engine.swarm.downloaded / totalLength) * 100,
-          downloadSpeed: swarm.downloadSpeed(),
-        },
+        this.gatewayService.server.emit('message', {
+          id: movie.id,
+          type: MessageType.DOWNLOAD_STARTED,
+          content: { message: 'Movie started downloading' },
+        });
+      },
+    );
+    this.movies = await this.moviesService.getStillDownloading();
+  }
+
+  async watchTorrents() {
+    await setTimeout(this.getTorrentData.bind(this), 3000);
+  }
+
+  async getTorrentData() {
+    for (const movie of this.movies) {
+      await this.transmission.get(movie.torrentId, async (err, result) => {
+        if (err) {
+          throw err;
+        }
+        if (result.torrents.length > 0) {
+          let download_speed;
+          if (result.torrents[0].rateDownload > 1000) {
+            download_speed = `${(
+              result.torrents[0].rateDownload / 1000
+            ).toFixed(1)} Mb/s`;
+          } else {
+            download_speed = `${result.torrents[0].rateDownload} Kb/s`;
+          }
+          this.gatewayService.server.emit('message', {
+            id: movie.id,
+            type: MessageType.DOWNLOAD_PROGRESS,
+            content: {
+              downloadedAmount: result.torrents[0].percentDone * 100,
+              downloadSpeed: download_speed,
+            },
+          });
+          if (result.torrents[0].percentDone > 0 && !movie.downloadedSubs) {
+            this.subsdownloaderService.getSubs(movie.imdbId, movie.dir);
+            movie.downloadedSubs = true;
+            this.moviesService.updateMovie(movie);
+          }
+          if (result.torrents[0].percentDone === 1) {
+            this.transmission.remove(movie.torrentId, async (err) => {
+              this.logger.error(err);
+            });
+
+            this.gatewayService.server.emit('message'),
+              {
+                id: movie.id,
+                type: MessageType.DOWNLOAD_FINISHED,
+                content: {
+                  message: 'Movie finished downloading',
+                },
+              };
+
+            movie.finishedDownloadingAt = new Date();
+            movie.torrentId = null;
+            movie.dir = null;
+
+            this.moviesService.updateMovie(movie);
+            this.refreshMovies();
+          }
+        }
       });
-    });
-    engine.on('idle', () => {
-      movie.finishedDownloadingAt = new Date();
-      this.moviesService.updateMovie(movie);
-      this.gatewayService.server.emit('message', {
-        id: movie.id,
-        type: MessageType.DOWNLOAD_FINISHED,
-        content: {
-          message: 'Movie finished downloading',
-        },
+    }
+    await this.watchTorrents();
+  }
+
+  async refreshMovies() {
+    this.movies = await this.moviesService.getStillDownloading();
+  }
+
+  async startTorrents() {
+    for (const movie of this.movies) {
+      this.transmission.start(movie.torrentId, async (err, result) => {
+        if (err) {
+          this.logger.error(err);
+        }
       });
-      this.plexService.scanLibraries();
-    });
-    return { message: `O torrent foi baixado`, success: true };
+    }
   }
 }

@@ -21,6 +21,8 @@ interface EnvironmentVariables {
   PLEX_URL: string;
   PLEX_TOKEN: string;
   MOVIES_PATH: string;
+  TRANSMISSION_USER: string;
+  TRANSMISSION_PASS: string;
 }
 
 export const validationSchema = Joi.object<EnvironmentVariables>({
@@ -46,5 +48,7 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
   OPENSUBS_PASSWORD: Joi.string().required(),
   PLEX_URL: Joi.string().required(),
   PLEX_TOKEN: Joi.string().required(),
-  MOVIES_PATH: Joi.string().default('torrents/movies'),
+  MOVIES_PATH: Joi.string().default('movies'),
+  TRANSMISSION_USER: Joi.string().default('admin'),
+  TRANSMISSION_PASS: Joi.string().default('admin'),
 });

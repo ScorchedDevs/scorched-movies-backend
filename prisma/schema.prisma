@@ -35,7 +35,10 @@ model Movie {
   name                  String
   image                 String
   quality               String
+  imdbId                String
   dir                   String?
+  torrentId             Int?
+  downloadedSubs        Boolean   @default(false)
   users                 User[]
   startedDownloadingAt  DateTime  @default(now())
   finishedDownloadingAt DateTime?
