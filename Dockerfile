@@ -15,4 +15,4 @@ COPY . .
 
 RUN yarn prisma generate && yarn build
 
-CMD [ "/bin/bash", "-c", "yarn migrate:dev; node dist/src/main.js" ]
+CMD [ "/bin/bash", "-c", "sudo node dist/src/main.js" ]

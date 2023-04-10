@@ -2,11 +2,11 @@
 
 ## New Features
 
-- Adding language identifier on subtitles
+- N/A
 
 ## Enhancements
 
-- N/A
+- changing torrent manager to transmission
 
 ## Fixes
 

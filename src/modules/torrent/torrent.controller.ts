@@ -15,7 +15,7 @@ export class TorrentController {
   downloadTorrent(
     @Body() downloadTorrentInput: DownloadTorrentInput,
     @CurrentUser() user: User,
-  ): Promise<MessageOutput> {
+  ): Promise<MessageOutput | void> {
     return this.torrentService.donwloadTorrent(downloadTorrentInput, user);
   }
 }

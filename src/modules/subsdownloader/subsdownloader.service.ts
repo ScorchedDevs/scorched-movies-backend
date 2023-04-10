@@ -1,13 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { createWriteStream } from 'fs';
+import { createWriteStream, fstat, lstatSync, readdirSync } from 'fs';
 import * as https from 'https';
 import { string } from 'joi';
+import { UtilsService } from 'src/utils/utils.service';
 
 @Injectable()
 export class SubsdownloaderService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly utilsService: UtilsService,
+  ) {}
 
   logger = new Logger(SubsdownloaderService.name);
 
@@ -32,7 +36,7 @@ export class SubsdownloaderService {
     } catch (error) {
       this.logger.error(error);
     }
-    await this.delay(5000);
+    await this.utilsService.delay(1000);
     try {
       const { data } = await axios
         .get<any>(
@@ -46,7 +50,7 @@ export class SubsdownloaderService {
         .catch((e) => {
           throw new Error(e);
         });
-      await this.delay(5000);
+      await this.utilsService.delay(1000);
       for (const sub of data.data) {
         const queryData = {
           file_id: sub.attributes.files[0].file_id,
@@ -71,7 +75,14 @@ export class SubsdownloaderService {
             splitFileName.push(sub.attributes.language);
             splitFileName.push(extension);
             const fileName = splitFileName.join('.');
-            const path = `${directory}/${fileName}`;
+            const items = readdirSync(directory);
+            let movieSubdir;
+            items.forEach((item) => {
+              if (lstatSync(`${directory}/${item}`).isDirectory()) {
+                movieSubdir = `${directory}/${item}`;
+              }
+            });
+            const path = `${movieSubdir}/${fileName}`;
             const filePath = createWriteStream(path);
             res.pipe(filePath);
             filePath.on('finish', () => {
@@ -81,14 +92,10 @@ export class SubsdownloaderService {
         } catch (error) {
           this.logger.error(error);
         }
-        await this.delay(5000);
+        await this.utilsService.delay(1000);
       }
     } catch (error) {
       this.logger.error(error);
     }
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
