@@ -30,6 +30,7 @@ export class TorrentService {
   movies!: Movie[];
 
   public transmission = new Transmission({
+    host: this.configService.get('TRANSMISSION_IP'),
     username: this.configService.get('TRANSMISSION_USER'),
     password: this.configService.get('TRANSMISSION_PASS'),
   });
