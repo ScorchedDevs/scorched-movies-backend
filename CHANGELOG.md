@@ -2,16 +2,16 @@
 
 ## New Features
 
-- N/A
+ - N/A
 
 ## Enhancements
 
-- N/A
+ - N/A
 
 ## Fixes
 
-- small fix
+ - N/A
 
 ## Compatibility Breaker
 
-- N/A
+ - N/A
