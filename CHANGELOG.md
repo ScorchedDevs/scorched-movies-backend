@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- some fixes
+- small fix on path
 
 ## Compatibility Breaker
 

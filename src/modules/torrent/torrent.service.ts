@@ -39,7 +39,9 @@ export class TorrentService {
     await this.transmission.addUrl(
       downloadTorrentInput.magnetLink,
       {
-        'download-dir': `/output/${downloadTorrentInput.imdbId}_${downloadTorrentInput.quality}`,
+        'download-dir': `${this.configService.get('TRANSMISSION_PATH')}/${
+          downloadTorrentInput.imdbId
+        }_${downloadTorrentInput.quality}`,
       },
       async (err, torrent) => {
         if (err) {

@@ -1,15 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Movie, Prisma, User } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { userInfo } from 'os';
 import { UserService } from '../user/user.service';
 
 @Injectable()
 export class MoviesService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   private logger = new Logger(MoviesService.name);
 

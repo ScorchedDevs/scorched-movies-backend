@@ -23,6 +23,7 @@ interface EnvironmentVariables {
   MOVIES_PATH: string;
   TRANSMISSION_USER: string;
   TRANSMISSION_PASS: string;
+  TRANSMISSION_PATH: string;
 }
 
 export const validationSchema = Joi.object<EnvironmentVariables>({
@@ -51,4 +52,5 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
   MOVIES_PATH: Joi.string().default('movies'),
   TRANSMISSION_USER: Joi.string().default('admin'),
   TRANSMISSION_PASS: Joi.string().default('admin'),
+  TRANSMISSION_PATH: Joi.string.default('/output'),
 });
