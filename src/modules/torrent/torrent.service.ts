@@ -74,9 +74,9 @@ export class TorrentService {
           type: MessageType.DOWNLOAD_STARTED,
           content: { message: 'Movie started downloading' },
         });
+        await this.refreshMovies();
       },
     );
-    this.movies = await this.moviesService.getStillDownloading();
   }
 
   async watchTorrents() {
@@ -91,12 +91,18 @@ export class TorrentService {
         }
         if (result.torrents.length > 0) {
           let download_speed;
-          if (result.torrents[0].rateDownload > 1000) {
+          if (result.torrents[0].rateDownload > 1000000) {
+            download_speed = `${(
+              result.torrents[0].rateDownload / 1000000
+            ).toFixed(1)} Mb/s`;
+          } else if (result.torrents[0].rateDownload > 1000) {
             download_speed = `${(
               result.torrents[0].rateDownload / 1000
-            ).toFixed(1)} Mb/s`;
+            ).toFixed(1)} Kb/s`;
           } else {
-            download_speed = `${result.torrents[0].rateDownload} Kb/s`;
+            download_speed = `${result.torrents[0].rateDownload.toFixed(
+              1,
+            )} b/s`;
           }
           this.gatewayService.server.emit('message', {
             id: movie.id,
