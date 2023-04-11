@@ -10,7 +10,7 @@
 
 ## Fixes
 
-- small fix dockerfile
+- fixing migration
 
 ## Compatibility Breaker
 
