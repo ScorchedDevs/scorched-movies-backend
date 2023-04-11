@@ -52,5 +52,5 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
   MOVIES_PATH: Joi.string().default('movies'),
   TRANSMISSION_USER: Joi.string().default('admin'),
   TRANSMISSION_PASS: Joi.string().default('admin'),
-  TRANSMISSION_PATH: Joi.string.default('/output'),
+  TRANSMISSION_PATH: Joi.string().default('/output'),
 });
