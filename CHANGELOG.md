@@ -2,16 +2,16 @@
 
 ## New Features
 
- - N/A
+- N/A
 
 ## Enhancements
 
- - N/A
+- Adding deleting endpoint
 
 ## Fixes
 
- - N/A
+- Fixing deleting functionality
 
 ## Compatibility Breaker
 
- - N/A
+- N/A

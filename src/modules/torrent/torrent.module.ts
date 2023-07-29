@@ -20,5 +20,6 @@ import { PlexModule } from '../plex/plex.module';
   ],
   providers: [TorrentService],
   controllers: [TorrentController],
+  exports: [TorrentService],
 })
 export class TorrentModule {}

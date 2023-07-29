@@ -135,7 +135,6 @@ export class TorrentService {
 
             movie.finishedDownloadingAt = new Date();
             movie.torrentId = null;
-            movie.dir = null;
 
             this.moviesService.updateMovie(movie);
             this.refreshMovies();
@@ -158,5 +157,13 @@ export class TorrentService {
         }
       });
     }
+  }
+
+  async removeTorrent(movie) {
+    await this.transmission.remove(movie.torrentId, async (err, result) => {
+      if (err) {
+        this.logger.error(err);
+      }
+    });
   }
 }

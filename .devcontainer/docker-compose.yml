@@ -23,6 +23,7 @@ services:
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
@@ -40,7 +41,7 @@ services:
       - PORT=9091
     image: jaymoulin/transmission
     network_mode: service:db
-    
+
 networks:
   backend:
     driver: bridge
