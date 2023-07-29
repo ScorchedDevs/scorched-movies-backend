@@ -51,48 +51,56 @@ export class SubsdownloaderService {
           throw new Error(e);
         });
       await this.utilsService.delay(1000);
-      for (const sub of data.data) {
-        const queryData = {
-          file_id: sub.attributes.files[0].file_id,
-        };
-        try {
-          const { data } = await axios
-            .post(`https://api.opensubtitles.com/api/v1/download`, queryData, {
-              headers: {
-                'Api-Key': this.configService.get('OPENSUBS_API_KEY'),
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${this.token}`,
-                Accept: '*/*',
-              },
-            })
-            .catch((e) => {
-              throw new Error(e);
-            });
+      let page = data.page;
+      while (data.total_pages > page) {
+        for (const sub of data.data) {
+          const queryData = {
+            file_id: sub.attributes.files[0].file_id,
+          };
+          try {
+            const { data } = await axios
+              .post(
+                `https://api.opensubtitles.com/api/v1/download`,
+                queryData,
+                {
+                  headers: {
+                    'Api-Key': this.configService.get('OPENSUBS_API_KEY'),
+                    'Content-Type': 'application/json; charset=utf-8',
+                    Authorization: `Bearer ${this.token}`,
+                    Accept: '*/*',
+                  },
+                },
+              )
+              .catch((e) => {
+                throw new Error(e);
+              });
 
-          https.get(data.link, (res) => {
-            const splitFileName = data.file_name.split('.');
-            const extension = splitFileName.pop();
-            splitFileName.push(sub.attributes.language);
-            splitFileName.push(extension);
-            const fileName = splitFileName.join('.');
-            const items = readdirSync(directory);
-            let movieSubdir;
-            items.forEach((item) => {
-              if (lstatSync(`${directory}/${item}`).isDirectory()) {
-                movieSubdir = `${directory}/${item}`;
-              }
+            https.get(data.link, (res) => {
+              const splitFileName = data.file_name.split('.');
+              const extension = splitFileName.pop();
+              splitFileName.push(sub.attributes.language);
+              splitFileName.push(extension);
+              const fileName = splitFileName.join('.');
+              const items = readdirSync(directory);
+              let movieSubdir;
+              items.forEach((item) => {
+                if (lstatSync(`${directory}/${item}`).isDirectory()) {
+                  movieSubdir = `${directory}/${item}`;
+                }
+              });
+              const path = `${movieSubdir}/${fileName}`;
+              const filePath = createWriteStream(path);
+              res.pipe(filePath);
+              filePath.on('finish', () => {
+                filePath.close();
+              });
             });
-            const path = `${movieSubdir}/${fileName}`;
-            const filePath = createWriteStream(path);
-            res.pipe(filePath);
-            filePath.on('finish', () => {
-              filePath.close();
-            });
-          });
-        } catch (error) {
-          this.logger.error(error);
+          } catch (error) {
+            this.logger.error(error);
+          }
+          await this.utilsService.delay(1000);
         }
-        await this.utilsService.delay(1000);
+        page++;
       }
     } catch (error) {
       this.logger.error(error);

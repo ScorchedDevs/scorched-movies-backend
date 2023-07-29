@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 
@@ -6,13 +6,19 @@ import axios from 'axios';
 export class PlexService {
   constructor(private readonly configService: ConfigService) {}
 
+  private readonly logger = new Logger(PlexService.name);
+
   async scanLibraries() {
-    axios.get(
-      `http://${this.configService.get(
-        'PLEX_URL',
-      )}:32400/library/sections/all/refresh?X-Plex-Token=${this.configService.get(
-        'PLEX_TOKEN',
-      )}`,
-    );
+    try {
+      axios.get(
+        `${this.configService.get(
+          'PLEX_URL',
+        )}/library/sections/all/refresh?X-Plex-Token=${this.configService.get(
+          'PLEX_TOKEN',
+        )}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 }
