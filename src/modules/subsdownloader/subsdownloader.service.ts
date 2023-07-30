@@ -44,6 +44,7 @@ export class SubsdownloaderService {
           {
             headers: {
               'Api-Key': this.configService.get('OPENSUBS_API_KEY'),
+              Authorization: `Bearer ${this.token}`,
             },
           },
         )
@@ -52,7 +53,10 @@ export class SubsdownloaderService {
         });
       await this.utilsService.delay(1000);
       let page = data.page;
-      while (data.total_pages > page) {
+      this.logger.log(
+        `Downloading ${data.total_count} subtitles for the movie of ID ${imdbId}`,
+      );
+      while (data.total_pages >= page) {
         for (const sub of data.data) {
           const queryData = {
             file_id: sub.attributes.files[0].file_id,

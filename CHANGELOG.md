@@ -6,11 +6,11 @@
 
 ## Enhancements
 
-- Adding deleting endpoint
+- N/A
 
 ## Fixes
 
-- Fixing deleting functionality
+- Fixing deleting and redownloading mechanisms
 
 ## Compatibility Breaker
 
