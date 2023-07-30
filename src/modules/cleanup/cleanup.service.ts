@@ -21,10 +21,12 @@ export class CleanupService {
 
   async deleteMovie(movie: Movie): Promise<MessageOutput> {
     this.logger.log(`Deleting movie ${movie.name}`);
-    rmSync(movie.dir, { recursive: true, force: true });
     this.torrentService.removeTorrent(movie);
+    rmSync(movie.dir, { recursive: true, force: true });
     movie.dir = null;
     movie.deletedAt = new Date();
+    movie.downloadedSubs = false;
+    movie.finishedDownloadingAt = null;
     this.moviesService.updateMovie(movie);
 
     return {

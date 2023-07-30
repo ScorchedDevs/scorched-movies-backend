@@ -63,6 +63,8 @@ export class TorrentService {
             imdbId: downloadTorrentInput.imdbId,
           };
           movie = await this.moviesService.create(movie);
+        } else {
+          movie.deletedAt = null;
         }
 
         movie.torrentId = torrent.id;
