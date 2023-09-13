@@ -6,11 +6,11 @@
 
 ## Enhancements
 
-- N/A
+- Removing hardcoded URls in favor of environment ones.
 
 ## Fixes
 
-- Fixing deleting and redownloading mechanisms
+- N/A
 
 ## Compatibility Breaker
 

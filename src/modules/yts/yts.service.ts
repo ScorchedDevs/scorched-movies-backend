@@ -1,8 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { UtilsService } from 'src/utils/utils.service';
 
 @Injectable()
 export class YtsService {
+  constructor(private readonly configService: ConfigService) {}
   logger = new Logger(YtsService.name);
 
   async getMovies(limit: number, page: number, search = null): Promise<any> {
@@ -12,7 +15,9 @@ export class YtsService {
     }
     const { data } = await axios
       .get<any>(
-        `http://yts.torrentbay.to/api/v2/list_movies.json?limit=${limit}&page=${page}${searchQuery}`,
+        `${this.configService.get(
+          'YTS_URL',
+        )}/api/v2/list_movies.json?limit=${limit}&page=${page}${searchQuery}`,
       )
       .catch((e) => {
         throw new Error(e);
