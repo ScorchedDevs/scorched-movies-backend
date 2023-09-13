@@ -24,11 +24,15 @@ export class SubsdownloaderService {
         password: this.configService.get('OPENSUBS_PASSWORD'),
       };
       const { data } = await axios
-        .post('https://api.opensubtitles.com/api/v1/login', loginBody, {
-          headers: {
-            'Api-Key': this.configService.get('OPENSUBS_API_KEY'),
+        .post(
+          `${this.configService.get('OPENSUBS_URL')}/api/v1/login`,
+          loginBody,
+          {
+            headers: {
+              'Api-Key': this.configService.get('OPENSUBS_API_KEY'),
+            },
           },
-        })
+        )
         .catch((e) => {
           throw new Error(e);
         });

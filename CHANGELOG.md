@@ -2,16 +2,16 @@
 
 ## New Features
 
- - N/A
+- N/A
 
 ## Enhancements
 
- - N/A
+- Removing hardcoded URls in favor of environment ones.
 
 ## Fixes
 
- - N/A
+- N/A
 
 ## Compatibility Breaker
 
- - N/A
+- N/A
